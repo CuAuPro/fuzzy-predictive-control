@@ -42,16 +42,16 @@ Membership Functions are normalised Gaussian functions:
 
 ```math
 \begin{align}
-	\Phi_i(\mathbf{u}) = \frac{\mu_i(\mathbf{u})}{ \sum_{j=1}^{M} \mu_j(\mathbf{u})},
+	\Phi_i(\mathbf{u}) = \frac{\mu_i(\mathbf{u})}{ \sum{j=1}^{M} \mu_j(\mathbf{u})},
 \end{align}
 ```
 where:
 
-$
+```math
 \begin{align}
 	\mu_i(\mathbf{u}) = \prod_{j=1}^{p} e^{-\frac{u_j - c_{ij}}{2\gamma\sigma_{ij}}},
 \end{align}
-$
+```
 where:
 
 - $M$: The number of LLM (Local Linear Model) instances.
@@ -82,17 +82,17 @@ The local estimation is performed separately for each local model, typically usi
 
 The general transfer function sought in parametric identification is given as:
 
-$
+```math
 \begin{align}
 H(z) = z^{-d} \cdot \frac{(b_0z^n + b_1z^{n-1} + b_n)}  {(z^n + a_1z^{n-1} + a_n)}
 \end{align}
-$
+```
 
 To cover the entire operating range of the process, an pseudo-random binary signal (PRBS) was used as the excitation signal, with appropriate intervals for changing the amplitude (based on the dominant time constant of the process).
 
 We construct the matrix $\mathbf{X}$ containing input process measurements and the output vector $\mathbf{y}$ containing output process measurements as follows:
 
-$
+```math
 \begin{align}
 	\mathbf{X} = 	\begin{bmatrix}
 	 	x_1(1) & x_2(1) & \cdots & x_n(1) & 1 \\
@@ -104,10 +104,11 @@ $
     		y(K) & y(K+1) & \cdots & y(N)
     \end{bmatrix}
 \end{align}
-$
+```
 
 The matrix $\mathbf{X}$ and the vector $\mathbf{y}$ in example of two delayed inputs and outputs are written:
-$
+
+```math
 \begin{align}
 \mathbf{X} &= 	\begin{bmatrix}
  	-x_2(1) & -x_1(1) & u_2(1) & u_1(1) \\
@@ -119,15 +120,15 @@ $
     y(3) & y(4) & \cdots & y(N)
 \end{bmatrix}
 \end{align}
-$
+```
 
 We calculate the model parameters $\mathbf{\Theta}$ using the following equation:
 
-$
+```math
 \begin{align}
 \mathbf{\Theta} = \left(\mathbf{X}^T \mathbf{X} \right)^{-1} \mathbf{X}^T \mathbf{y}.
 \end{align}
-$
+```
 Alternatively, parameter estimation with the method of weighted least squares (excitation with APRBS) is possible, where the weights in the diagonal matrix $\mathbf{Q}$ would be equal to the membership of the linear region. However, due to strong nonlinearity in the narrow final region, this approach did not perform well. While it may achieve smoother results and possibly reduce bias, it compromises interpretability.
 
 ## Fuzzy Model Simulation
@@ -140,77 +141,77 @@ Alternatively, parameter estimation with the method of weighted least squares (e
 
 In the case of controlling higher-order multivariable processes, it is more convenient to represent the model in the state-space form rather than using a transfer function. Thus, we focus on the following state-space representation:
 
-$
+```math
 \begin{align}
 	\mathbf{x}_m(k+1) = \mathbf{A}_m \mathbf{x}_m(k) + \mathbf{B}_m \mathbf{u}(k)\\
 	\mathbf{y}(k) = \mathbf{C}_m \mathbf{x}_m(k) + \mathbf{D}_m \mathbf{u}(k)\nonumber
 \end{align}
-$
+```
 
 In real processes, where there is no direct influence of input signals on outputs, the term $\mathbf{D}_m \mathbf{u}(k)$ is omitted.
 
 
 In our case, where a soft model composed of multiple locally linear models is used, we express the model in the Observable Canonical State Space (OCSS) form:
 
-$
+```math
 \begin{align}
 \mathbf{x}_m(k+1) = \tilde{\mathbf{A}}_m \mathbf{x}_m(k) + \tilde{\mathbf{B}}_m \mathbf{u}(k) + \tilde{\mathbf{R}}_m\\
 \mathbf{y}(k) = \tilde{\mathbf{C}}_m \mathbf{x}_m(k)\nonumber,
 \end{align}
-$
+```
 where:
 
-$
+```math
 \begin{align}
 \tilde{\mathbf{A}}m = \sum_{j=1}^{M} \beta_j \mathbf{A}{m_j}\\
 \tilde{\mathbf{B}}m = \sum_{j=1}^{M} \beta_j \mathbf{B}{m_j}\\
 \tilde{\mathbf{C}}m = \sum_{j=1}^{M} \beta_j \mathbf{C}{m_j}\\
 \tilde{\mathbf{R}}m = \sum_{j=1}^{M} \beta_j \mathbf{R}{m_j}.
 \end{align}
-$
+```
 Here, $\beta_j$ represents the weight, and $\mathbf{R}_{m_j}$ is the operating point of the j-th locally linear model.
 
 
 
-$
+```math
 \begin{align}
 Y(k) = -a_1 Y(k-1) - \ldots - a_m Y(k-m) + \nonumber\\
     b_1 U(k-1) + \ldots + b_m U(k-m) + \\
     (1 + a_1 + \ldots + a_m) \bar{Y} - (b_1 + \ldots + b_m) \bar{U}\nonumber
 \end{align}
-$
+```
 Steady-state  can be modelled as shown in the above equation, in the last row. This is denoted by $\tilde{\mathbf{R}}m$.
 
 During the implementation of PFC, a reference model trajectory is also modeled to represent the desired reference change (usually a first-order model). This reference model should have unity gain, meaning that the matrices $\mathbf{A}_r$, $\mathbf{B}_r$, and $\mathbf{C}_r$ must satisfy the condition:
 
-$
+```math
 \begin{align}
 \mathbf{C}_r\left(\mathbf{I} - \mathbf{A}_r\right)^{-1} \mathbf{B}_r = \mathbf{I}.
 \end{align}
-$
+```
 
 After the derivation, we obtain the simplified control law:
 
 
-$
+```math
 \begin{align}
 \mathbf{u}(k) = \mathbf{G}\left(\mathbf{w}(k)-\mathbf{y}_p(k)\right) + G_0^{-1}\mathbf{y}_m(k) - G_0^{-1} \mathbf{C}_m \mathbf{A}_m^H \mathbf{x}_m(k),
 \end{align}
-$
+```
 where:
 
-$
+```math
 \begin{align}
 \mathbf{G} = G_0^{-1}\left(\mathbf{I}- \mathbf{A}_r^H\right)
 \end{align}
-$
+```
 and:
 
-$
+```math
 \begin{align}
 G_0 = \mathbf{C}_m\left(\mathbf{A}_m^H - \mathbf{I}\right) \left(\mathbf{A}_m - \mathbf{I}\right)^{-1} \mathbf{B}_m.
 \end{align}
-$
+```
 
 Here, $\mathbf{w}$ represents the reference, and $H$ is the prediction horizon (during this horizon, the process output $\mathbf{y}_p(k)$ is expected to match the reference response $\mathbf{y}_r(k)$).
 
