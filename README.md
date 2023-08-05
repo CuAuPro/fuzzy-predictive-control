@@ -40,11 +40,11 @@ Based on the clusters detected in the static characteristic, we calculate member
 
 Membership Functions are normalised Gaussian functions:
 
-$
+```math
 \begin{align}
 	\Phi_i(\mathbf{u}) = \frac{\mu_i(\mathbf{u})}{ \sum_{j=1}^{M} \mu_j(\mathbf{u})},
 \end{align}
-$
+```
 where:
 
 $
