@@ -42,7 +42,7 @@ Membership Functions are normalised Gaussian functions:
 
 ```math
 \begin{align}
-	\Phi_i(\mathbf{u}) = \frac{\mu_i(\mathbf{u})}{ \sum{j=1}^{M} \mu_j(\mathbf{u})},
+	\Phi_i(\mathbf{u}) = \frac{\mu_i(\mathbf{u})}{ \sum_{j=1}^{M} \mu_j(\mathbf{u})},
 \end{align}
 ```
 where:
@@ -111,10 +111,10 @@ The matrix $\mathbf{X}$ and the vector $\mathbf{y}$ in example of two delayed in
 ```math
 \begin{align}
 \mathbf{X} &= 	\begin{bmatrix}
- 	-x_2(1) & -x_1(1) & u_2(1) & u_1(1) \\
-    -x_2(2) & -x_1(2) & u_2(2) & u_1(2) \\
+ 	-y(2) & -y(1) & u(2) & u(1) \\
+    -y(3) & -y(2) & u(3) & u(2) \\
     \vdots & \vdots & \vdots & \vdots \\
-    -x_2(N) & -x_1(N) & u_2(N) & u_1(N)
+    -y(N-1) & -y(N-2) & u(N-1) & u(N-2)
 \end{bmatrix}\\
 \mathbf{y} &= \begin{bmatrix} 
     y(3) & y(4) & \cdots & y(N)
@@ -163,10 +163,10 @@ where:
 
 ```math
 \begin{align}
-\tilde{\mathbf{A}}m = \sum_{j=1}^{M} \beta_j \mathbf{A}{m_j}\\
-\tilde{\mathbf{B}}m = \sum_{j=1}^{M} \beta_j \mathbf{B}{m_j}\\
-\tilde{\mathbf{C}}m = \sum_{j=1}^{M} \beta_j \mathbf{C}{m_j}\\
-\tilde{\mathbf{R}}m = \sum_{j=1}^{M} \beta_j \mathbf{R}{m_j}.
+\tilde{\mathbf{A}}_m = \sum_{j=1}^{M} \beta_j \mathbf{A}_{m_j}\\
+\tilde{\mathbf{B}}_m = \sum_{j=1}^{M} \beta_j \mathbf{B}_{m_j}\\
+\tilde{\mathbf{C}}_m = \sum_{j=1}^{M} \beta_j \mathbf{C}_{m_j}\\
+\tilde{\mathbf{R}}_m = \sum_{j=1}^{M} \beta_j \mathbf{R}_{m_j}.
 \end{align}
 ```
 Here, $\beta_j$ represents the weight, and $\mathbf{R}_{m_j}$ is the operating point of the j-th locally linear model.
@@ -180,7 +180,7 @@ Y(k) = -a_1 Y(k-1) - \ldots - a_m Y(k-m) + \nonumber\\
     (1 + a_1 + \ldots + a_m) \bar{Y} - (b_1 + \ldots + b_m) \bar{U}\nonumber
 \end{align}
 ```
-Steady-state  can be modelled as shown in the above equation, in the last row. This is denoted by $\tilde{\mathbf{R}}m$.
+Steady-state  can be modelled as shown in the above equation, in the last row. This is denoted by $\tilde{\mathbf{R}}_m$.
 
 During the implementation of PFC, a reference model trajectory is also modeled to represent the desired reference change (usually a first-order model). This reference model should have unity gain, meaning that the matrices $\mathbf{A}_r$, $\mathbf{B}_r$, and $\mathbf{C}_r$ must satisfy the condition:
 
