@@ -101,7 +101,7 @@ We construct the matrix $\mathbf{X}$ containing input process measurements and t
     		x_1(N) & x_2(N) & \cdots & x_n(N) & 1
     \end{bmatrix}\\
     \mathbf{y} = \begin{bmatrix} 
-    		y(K) & y(K+1) & \cdots & y(N)
+    		y(1) & y(2) & \cdots & y(N)
     \end{bmatrix}
 \end{align}
 ```
@@ -252,7 +252,7 @@ During reference tracking, the goal is to achieve better tracking of the process
 
 | ![](/docs/img/reference_tracking.png) |
 |:--:| 
-| Membership functions.|
+| Reference tracking.|
 
 ### Disturbance rejection
 
@@ -260,7 +260,7 @@ While disturbance rejection, the aim is to minimize the effects of external dist
 
 | ![](/docs/img/disturbance_rejection.png) |
 |:--:| 
-| Membership functions.|
+| Disturbance rejection.|
 
 # Conclusions
 
